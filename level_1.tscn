@@ -1,0 +1,142 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbi48qlg00tph"]
+
+[ext_resource type="PackedScene" uid="uid://brpp1qx3m6bnu" path="res://door.tscn" id="1_wab6q"]
+[ext_resource type="PackedScene" uid="uid://gcwqf7vf4yqf" path="res://puzzle_input.tscn" id="2_jvsgd"]
+[ext_resource type="Texture2D" uid="uid://d1kcfsvrqvw4w" path="res://art/envelope_sealed.png" id="3_mvsoc"]
+[ext_resource type="Texture2D" uid="uid://do64wfk7e7n5n" path="res://art/depressionTable.png" id="3_p6uf7"]
+[ext_resource type="Script" path="res://puzzle_solver.gd" id="3_sa4s7"]
+[ext_resource type="Texture2D" uid="uid://gtp0xye40poy" path="res://art/CommTerminal.png" id="4_tndpc"]
+[ext_resource type="Texture2D" uid="uid://p4shuw84up00" path="res://art/futureui1.png" id="5_atog5"]
+[ext_resource type="Script" path="res://terminal.gd" id="6_7nk48"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4daf6"]
+size = Vector2(133, 134)
+
+[node name="Level1" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 274.0
+offset_bottom = 1694.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 2.0
+offset_top = 1436.0
+offset_right = 3004.0
+offset_bottom = 1704.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+offset_left = 10.0
+offset_top = -2.0
+offset_right = 3012.0
+offset_bottom = 266.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+offset_left = 2734.0
+offset_top = 10.0
+offset_right = 3002.0
+offset_bottom = 1703.0
+color = Color(0, 0, 0, 1)
+
+[node name="Door" parent="." instance=ExtResource("1_wab6q")]
+position = Vector2(341, 1386)
+metadata/_edit_group_ = true
+
+[node name="Label" parent="Door" index="2"]
+text = "
+"
+
+[node name="PuzzleInput" parent="." instance=ExtResource("2_jvsgd")]
+
+[node name="PuzzleInput2" parent="." instance=ExtResource("2_jvsgd")]
+position = Vector2(1000, 1408)
+input = "res://puzzle_input/full_1.txt"
+
+[node name="Sprite2D" parent="PuzzleInput2" index="0"]
+texture = ExtResource("3_mvsoc")
+
+[node name="PuzzleSolver" type="Area2D" parent="." groups=["dropable"]]
+position = Vector2(1518, 1404)
+script = ExtResource("3_sa4s7")
+
+[node name="Table" type="Sprite2D" parent="PuzzleSolver"]
+position = Vector2(-34, -9)
+scale = Vector2(2, 2)
+texture = ExtResource("3_p6uf7")
+
+[node name="Computer" type="Sprite2D" parent="PuzzleSolver"]
+position = Vector2(-34, -56)
+scale = Vector2(2, 2)
+texture = ExtResource("4_tndpc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuzzleSolver"]
+position = Vector2(-32.5, -36)
+shape = SubResource("RectangleShape2D_4daf6")
+
+[node name="Terminal" type="Sprite2D" parent="PuzzleSolver"]
+position = Vector2(-9.25, -639.75)
+scale = Vector2(2.54207, 2.89107)
+texture = ExtResource("5_atog5")
+script = ExtResource("6_7nk48")
+
+[node name="Message" type="Label" parent="PuzzleSolver/Terminal"]
+offset_left = -324.0
+offset_top = 65.0
+offset_right = 355.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(0, 1, 0, 0.545098)
+theme_override_colors/font_shadow_color = Color(0, 0.690196, 0.713726, 1)
+theme_override_font_sizes/font_size = 32
+text = "Awaiting Input . . ."
+
+[node name="Timer" type="Timer" parent="PuzzleSolver/Terminal"]
+autostart = true
+
+[node name="List1" type="Label" parent="PuzzleSolver/Terminal"]
+clip_contents = true
+offset_left = -235.143
+offset_top = -91.4021
+offset_right = -100.143
+offset_bottom = 192.598
+theme_override_colors/font_color = Color(0, 0.741176, 0, 1)
+horizontal_alignment = 1
+clip_text = true
+max_lines_visible = 5
+
+[node name="List3" type="Label" parent="PuzzleSolver/Terminal"]
+clip_contents = true
+offset_left = -135.0
+offset_top = -91.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.921569, 0.54902, 0.658824, 1)
+theme_override_colors/font_shadow_color = Color(0.701961, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+max_lines_visible = 5
+
+[node name="List2" type="Label" parent="PuzzleSolver/Terminal"]
+clip_contents = true
+offset_left = -35.143
+offset_top = -91.402
+offset_right = 99.857
+offset_bottom = 192.598
+theme_override_colors/font_color = Color(0, 0.741176, 0, 1)
+horizontal_alignment = 1
+clip_text = true
+max_lines_visible = 5
+
+[node name="SortingAnimationTimer" type="Timer" parent="PuzzleSolver/Terminal"]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="PuzzleSolver/Terminal/Timer" to="PuzzleSolver/Terminal" method="_on_timer_timeout"]
+[connection signal="timeout" from="PuzzleSolver/Terminal/SortingAnimationTimer" to="PuzzleSolver" method="_on_sorting_animation_timer_timeout"]
+
+[editable path="Door"]
+[editable path="PuzzleInput2"]

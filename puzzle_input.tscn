@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://gcwqf7vf4yqf"]
+
+[ext_resource type="Script" path="res://puzzle_input.gd" id="1_wwu76"]
+[ext_resource type="Texture2D" uid="uid://brl7nc4oi3ved" path="res://art/envelope_closed.png" id="2_x4bic"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v74av"]
+size = Vector2(63, 45)
+
+[node name="PuzzleInput" type="Area2D" groups=["carryable"]]
+position = Vector2(885, 1408)
+script = ExtResource("1_wwu76")
+input = "res://puzzle_input/sample_1.txt"
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -5)
+scale = Vector2(2, 2)
+texture = ExtResource("2_x4bic")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 6.5)
+shape = SubResource("RectangleShape2D_v74av")

@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqyj5vkhsshly"]
+
+[ext_resource type="PackedScene" uid="uid://dbi48qlg00tph" path="res://level_1.tscn" id="2_7ablf"]
+[ext_resource type="PackedScene" uid="uid://brpp1qx3m6bnu" path="res://door.tscn" id="4_fukd3"]
+
+[node name="LevelSelect" type="Node2D"]
+position = Vector2(227, 439)
+
+[node name="Floor" type="ColorRect" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -267.0
+offset_top = 889.0
+offset_right = 3020.0
+offset_bottom = 1371.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_group_ = true
+
+[node name="Door1" parent="." instance=ExtResource("4_fukd3")]
+position = Vector2(238, 838)
+level = ExtResource("2_7ablf")
+startingPosition = Vector2(510, 1400)
+
+[node name="Door2" parent="." instance=ExtResource("4_fukd3")]
+position = Vector2(488, 838)
+
+[node name="Label" parent="Door2" index="2"]
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "2"
+
+[node name="Door3" parent="." instance=ExtResource("4_fukd3")]
+position = Vector2(738, 838)
+
+[node name="Label" parent="Door3" index="2"]
+text = "3"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 616.0
+offset_right = 1884.0
+offset_bottom = 273.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Advent of Code 2024"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[editable path="Door2"]
+[editable path="Door3"]
